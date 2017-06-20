@@ -3,37 +3,51 @@ var numberCorrect = 0;
 var numberIncorrect = 0;
 var unanswered = 0;
 
-var questions = ['','','','','','','','','',''];
+var questions = {
+	q1: a1
+	q2: a2
+};
 
 //make a function for the WHOLEgame. trigger on START click.
-//make a function for the question loop
+//make a function for hiding question and answers
+
+//make a function for the question object
 //for loop
 
-//show question and options in question box for 30 seconds
+//show question & options in question box 
+	//and set time remaining to 30 seconds with countdown
 	
 	//if 
 
 		//timer runs out
+			//hide question&answers
 			//show message "you ran out of time!!" for 5 seconds
 			//go on to next question
 
-		//user answers, 
-			//if question is correct, 
+		//user answers,
+			//stop timer
+			//if option = answer,
+				//hide question&answers
 				//congratulate for 5 seconds
 				//increment numberCorrect
 				//go to next question
-			//if question is incorrect,
+			//else if option != answer,
+				//hide question&answers
 				//notify
 				//increment numberIncorrect
 				//go to next question
-//close the question loop function
+//close the question object function
 
 
-//create the reset game function. set numberCorrect, numberIncorrect, and unanswered to 0.
-	//call question loop function
+//create the reset game function.
+	//reset time remaining to 30seconds
+	//set numberCorrect, numberIncorrect, and unanswered to 0.
+	//call question object function
 
 
-//end of questions function. Shows correct answers, incorrect answers, unanswered.
+//end of questions function. 
+	//hide question&answers
+	//Show correct answers, incorrect answers, unanswered.
 	//call reset game function
 
 //close the WHOLEgame function.
