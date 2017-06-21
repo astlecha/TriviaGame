@@ -4,8 +4,8 @@ var numberIncorrect = 0;
 var unanswered = 0;
 
 var questions = {
-	q1: a1
-	q2: a2
+	q1: a1,
+	q2: a2,
 };
 
 //make a function for the WHOLEgame. trigger on START click.
@@ -22,18 +22,19 @@ var questions = {
 		//timer runs out
 			//hide question&answers
 			//show message "you ran out of time!!" for 5 seconds
+			//increment unanswered
 			//go on to next question
 
 		//user answers,
 			//stop timer
 			//if option = answer,
 				//hide question&answers
-				//congratulate for 5 seconds
+				//show message "Correct answer!" for 5 seconds
 				//increment numberCorrect
 				//go to next question
 			//else if option != answer,
 				//hide question&answers
-				//notify
+				//show message "Wrong answer!" & the correct answer for 5 seconds
 				//increment numberIncorrect
 				//go to next question
 //close the question object function
