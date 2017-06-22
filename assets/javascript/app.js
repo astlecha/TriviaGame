@@ -39,8 +39,11 @@ var questionObject = {
 //make a function for hiding question and answers
 function hideItem(htmlItem){
 	$(htmlItem).hide();
+	console.log(htmlItem);
 };
 
+
+hideItem('#question-box');
 
 //show question, start countdown
 function askQuestion(questionCount) {
@@ -98,41 +101,10 @@ function begin(){
 	//Ask First Question
 	askQuestion(questionCount);
 	counter = setInterval(nextQuestionCount,1000);
-	}
 
-//start button click triggers begin function
-	$("#start-button").on("click", function() {
-		hideItem('#start-button');
-
-	numberCorrect = 0, numberIncorrect = 0, unanswered = 0, questionCount = 0, count = 30;
-
-	begin();
-});
-
-
-//show question & options in question box
-	//and set time remaining to 30 seconds with countdown
-	
-	//if 
-		if (counter === 0){
-			$('#question-box').hide();
-			$('#answer-box').hide();
-			$('#results-box').html("You ran out of time!");
-
-		}
-		//timer runs out
-			//hide question&answers
-			//show message "you ran out of time!!" for 5 seconds
-				// newQuestion.append('You ran out of time!');
-			//increment unanswered
-			//go on to next question
-
-		//user answers,
-			//stop timer
-			// $(".questionDiv").on("click", function() {
-			// 	clearTimeout(delayButtonAlert);
-			// });
-			//if option = answer,
+	$('.list-group-item').on('click', function(){
+		clearInterval(counter);
+		//if option = answer,
 				//hide question&answers
 				//show message "Correct answer!" for 5 seconds
 					// newQuestion.append('Correct answer!');
@@ -144,7 +116,36 @@ function begin(){
 					// newQuestion.append('Incorrect answer!');
 				//increment numberIncorrect
 				//go to next question
-//close the question object function
+	})
+
+	}
+
+
+//START THE GAME
+//start button click triggers begin function
+	$("#start-button").on("click", function() {
+		hideItem('#start-button');
+
+	numberCorrect = 0, numberIncorrect = 0, unanswered = 0, questionCount = 0, count = 30;
+
+	begin();
+
+		if (count === 0){
+			$('#question-box').hide();
+			$('#answer-box').hide();
+			$('#results-box').html("You ran out of time!");
+			unanswered++;
+			askQuestion();
+		}
+
+});
+
+
+//show question & options in question box
+	//and set time remaining to 30 seconds with countdown
+	
+	// if 
+
 
 
 //create the reset game function.
