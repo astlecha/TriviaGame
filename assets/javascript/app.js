@@ -10,27 +10,27 @@ var questionObject = {
 	"ques" : [
 		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
 			"answer" : "Harper Lee",
-			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
 		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
 			"answer" : "Harper Lee",
-			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
 		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
 			"answer" : "Harper Lee",
-			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
 		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
 			"answer" : "Harper Lee",
-			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
 		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
 			"answer" : "Harper Lee",
-			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 		],
 	};
@@ -42,7 +42,7 @@ function hideItem(htmlItem){
 };
 
 
-//show questions
+//show question, start countdown
 function askQuestion(questionCount) {
 	countdown = 30;
 	$('#answer-box').show();
@@ -50,7 +50,7 @@ function askQuestion(questionCount) {
 		console.log(questionObject.ques[questionCount].question);
 		$('#question-box').html(questionObject.ques[questionCount].question);
 
-		//Display multiple choices
+		//show answer choices
 		$('#a').html(questionObject.ques[questionCount].choices[0]);
 		$('#b').html(questionObject.ques[questionCount].choices[1]);
 		$('#c').html(questionObject.ques[questionCount].choices[2]);
@@ -58,50 +58,68 @@ function askQuestion(questionCount) {
 	}
 
 	else {
+		//start the questions over, show results function
 		clearInterval(counter);
 		results();
 	}
 }
 
 
-// make a function for a 30 sec countdown timer
-var counter = setInterval(timer, 1000);
+function nextQuestionCount() {
+	countdown--;
 
-function timer(){
-  count = count-1;
-  if (count <= 0){
-     clearInterval(counter);
-     alert("Time's up!");
-     return;
-  }
-  $('#countdown').html(count+' seconds');
+    $('#countdown').html('<h2>Time Remaining: ' + countdown + ' seconds</h2>');
+
+
+    if (countdown === 0){
+
+        clearInterval(counter);
+
+        unanswered++;
+        console.log("Unanswered Questions: " + unanswered);
+        console.log('Time Up!')
+
+        questionCount++;
+
+        if ( questionCount == 5 ) {
+        	clearInterval(counter);
+        	results();
+        }
+        else {
+	        askQuestion(questionCount);
+	        countdown = 30;
+	        counter = setInterval(nextQuestionCount,1000);
+        }
+    }
 }
 
-
-//make a function for the WHOLEgame. trigger on START click.
-// function start() {
-	$("#start-button").on("click", function() {
-		hideItem('#start-button');
-	
+//function that starts the entire game
+function begin(){
 	//Ask First Question
 	askQuestion(questionCount);
-	//console.log(trivia.questions[questionCount].question);
-	counter = setInterval(countDownToNextQuestion,1000);
-	})
-// }
+	counter = setInterval(nextQuestionCount,1000);
+	}
 
-// start();
+//start button click triggers begin function
+	$("#start-button").on("click", function() {
+		hideItem('#start-button');
 
-//make a function for the question object
-//for loop
+	numberCorrect = 0, numberIncorrect = 0, unanswered = 0, questionCount = 0, count = 30;
 
-// iterateObject(questions);
+	begin();
+});
+
 
 //show question & options in question box
 	//and set time remaining to 30 seconds with countdown
 	
 	//if 
+		if (counter === 0){
+			$('#question-box').hide();
+			$('#answer-box').hide();
+			$('#results-box').html("You ran out of time!");
 
+		}
 		//timer runs out
 			//hide question&answers
 			//show message "you ran out of time!!" for 5 seconds
