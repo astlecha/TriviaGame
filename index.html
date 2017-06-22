@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Literature Trivia</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
@@ -9,34 +11,21 @@
 <div id="container">
 	<h1>Lit Trivia</h1>
 
-	<div id="start-button">start</div>
+	<button id="start-button" class="startButton btn btn-primary">start</button>
 
-	<h2>Time Remaining: </h2>
+	<div id="countdown"><h2>Time Remaining: </h2></div>
 
-	<div id="question-box">
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-		<div class="questionDiv"></div>
-	</div>
+	<div id="question-box"></div>
 
 	<div id="answer-box">
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
-		<div class="answerDiv"></div>
+		<div class="list-group choices">
+				<a id="a" class="list-group-item"></a>
+				<a id="b" class="list-group-item"></a>
+				<a id="c" class="list-group-item"></a>
+			</div>
+	</div>
+
+	<div id="results-box">
 	</div>
 
 

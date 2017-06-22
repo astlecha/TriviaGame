@@ -2,22 +2,38 @@
 var numberCorrect = 0;
 var numberIncorrect = 0;
 var unanswered = 0;
-var newQuestion = $("#question-box");
+var questionCount = 0;
+var delayButtonAlert;
+var count = 30;
 
-var objQuestions = {
-	q1 : 'Who wrote To Kill a Mockingbird?',
+var questionObject = {
+	"ques" : [
+		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+			"answer" : "Harper Lee",
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			},
 
-	q2 : 'Who wrote The Great Gatsby?',
+		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+			"answer" : "Harper Lee",
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			},
 
-	q3 : 'Who wrote "The Adventures of Huckleberry Finn"?',
+		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+			"answer" : "Harper Lee",
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			},
 
+		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+			"answer" : "Harper Lee",
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			},
+
+		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+			"answer" : "Harper Lee",
+			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway"],
+			},
+		],
 	};
-
-var objAnswers = {
-	a1 : ['Harper Lee', 'F. Scott Fitzgerald', 'Ernest Hemingway'],
-	a2 : ['Person 1', 'Person 2', 'Person 3',],
-
-};
 
 
 //make a function for hiding question and answers
@@ -26,24 +42,55 @@ function hideItem(htmlItem){
 };
 
 
+//show questions
+function askQuestion(questionCount) {
+	countdown = 30;
+	$('#answer-box').show();
+	if( questionCount < 5 ) {
+		console.log(questionObject.ques[questionCount].question);
+		$('#question-box').html(questionObject.ques[questionCount].question);
+
+		//Display multiple choices
+		$('#a').html(questionObject.ques[questionCount].choices[0]);
+		$('#b').html(questionObject.ques[questionCount].choices[1]);
+		$('#c').html(questionObject.ques[questionCount].choices[2]);
+		$('#d').html(questionObject.ques[questionCount].choices[3]);
+	}
+
+	else {
+		clearInterval(counter);
+		results();
+	}
+}
+
+
+// make a function for a 30 sec countdown timer
+var counter = setInterval(timer, 1000);
+
+function timer(){
+  count = count-1;
+  if (count <= 0){
+     clearInterval(counter);
+     alert("Time's up!");
+     return;
+  }
+  $('#countdown').html(count+' seconds');
+}
+
+
 //make a function for the WHOLEgame. trigger on START click.
-$('#start-button').click(function(){
+// function start() {
+	$("#start-button").on("click", function() {
+		hideItem('#start-button');
+	
+	//Ask First Question
+	askQuestion(questionCount);
+	//console.log(trivia.questions[questionCount].question);
+	counter = setInterval(countDownToNextQuestion,1000);
+	})
+// }
 
-hideItem('#start-button');
-
-// $('#demo').click(timedText());
-
-// function timedText() {
-//     setTimeout(timeQuestion1, 2000) 
-//     setTimeout(timeQuestion2, 4000)  
-// };
-
-// function timeQuestion1() {
-//     $('#demo').append = "QUESTION 1";
-// };
-// function timeQuestion2() {
-//     $('#demo').append = "QUESTION 2";
-// };
+// start();
 
 //make a function for the question object
 //for loop
@@ -64,6 +111,9 @@ hideItem('#start-button');
 
 		//user answers,
 			//stop timer
+			// $(".questionDiv").on("click", function() {
+			// 	clearTimeout(delayButtonAlert);
+			// });
 			//if option = answer,
 				//hide question&answers
 				//show message "Correct answer!" for 5 seconds
@@ -93,4 +143,3 @@ hideItem('#start-button');
 	//call reset game function
 
 //close the WHOLEgame function.
-})
