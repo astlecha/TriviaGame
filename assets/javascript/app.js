@@ -4,7 +4,7 @@ var numberIncorrect = 0;
 var unanswered = 0;
 var questionCount = 0;
 var delayButtonAlert;
-var count = 30;
+var countdown = 30;
 
 var questionObject = {
 	"ques" : [
@@ -13,22 +13,22 @@ var questionObject = {
 			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
-		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+		{ "question" : "This is question 2?",
 			"answer" : "Harper Lee",
 			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
-		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+		{ "question" : "Question 3 here?",
 			"answer" : "Harper Lee",
 			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
-		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+		{ "question" : "what question are we on? Oh ya, 4?",
 			"answer" : "Harper Lee",
 			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
 
-		{ "question" : "Who wrote 'To Kill a Mockingbird'?",
+		{ "question" : "FINALLY question 5?",
 			"answer" : "Harper Lee",
 			"choices" : ["Harper Lee", "F. Scott Fitzgerald", "Ernest Hemingway", "Louisa May Alcott"],
 			},
@@ -36,21 +36,17 @@ var questionObject = {
 	};
 
 
-//make a function for hiding question and answers
-function hideItem(htmlItem){
-	$(htmlItem).hide();
-	console.log(htmlItem);
-};
-
-
-hideItem('#question-box');
+$("#answer-box").hide();
+$('results-box').hide();
 
 //show question, start countdown
 function askQuestion(questionCount) {
-	countdown = 30;
+	countDownTimer=31;
+	console.log("You're on question # " + questionCount);
+	// var countdown = 30;
 	$('#answer-box').show();
-	if( questionCount < 5 ) {
-		console.log(questionObject.ques[questionCount].question);
+	if( questionCount <= 5 ) {
+		console.log("Question displayed: " + questionObject.ques[questionCount].question);
 		$('#question-box').html(questionObject.ques[questionCount].question);
 
 		//show answer choices
@@ -62,21 +58,21 @@ function askQuestion(questionCount) {
 
 	else {
 		//start the questions over, show results function
-		clearInterval(counter);
+		clearInterval(countdownIncrement);
 		results();
 	}
 }
 
 
 function nextQuestionCount() {
-	countdown--;
+	countDownTimer--;
 
-    $('#countdown').html('<h2>Time Remaining: ' + countdown + ' seconds</h2>');
+    $('#countdown').html('<h2>Time Remaining: ' + countDownTimer + ' seconds</h2>');
 
 
-    if (countdown === 0){
+    if (countDownTimer === 0){
 
-        clearInterval(counter);
+        clearInterval(countdownIncrement);
 
         unanswered++;
         console.log("Unanswered Questions: " + unanswered);
@@ -85,58 +81,83 @@ function nextQuestionCount() {
         questionCount++;
 
         if ( questionCount == 5 ) {
-        	clearInterval(counter);
+        	clearInterval(countdownIncrement);
         	results();
         }
         else {
 	        askQuestion(questionCount);
-	        countdown = 30;
-	        counter = setInterval(nextQuestionCount,1000);
+	        countDownTimer = 30;
+	        countdownIncrement = setInterval(nextQuestionCount,1000);
         }
     }
 }
 
+//check if answer is correct
+function checkAnswer(selected) {
+	if( selected === questionObject.ques[questionCount].answer) {
+		return true;
+	}
+
+	else {
+		return false;
+	}
+}
+
 //function that starts the entire game
 function begin(){
-	//Ask First Question
+	
+	//ask the question
 	askQuestion(questionCount);
-	counter = setInterval(nextQuestionCount,1000);
 
+	//set a 1 second interval for nextQuestionCount function
+	countdownIncrement = setInterval(nextQuestionCount,1000);
+
+	//if an item is clicked...
 	$('.list-group-item').on('click', function(){
-		clearInterval(counter);
-		//if option = answer,
-				//hide question&answers
-				//show message "Correct answer!" for 5 seconds
-					// newQuestion.append('Correct answer!');
-				//increment numberCorrect
-				//go to next question
-			//else if option != answer,
-				//hide question&answers
-				//show message "Incorrect answer!" & the correct answer for 5 seconds
-					// newQuestion.append('Incorrect answer!');
-				//increment numberIncorrect
-				//go to next question
+
+		//if it's correct
+		if (checkAnswer($(this).html()) === true){
+				numberCorrect++;
+				console.log("Number correct: "+numberCorrect);
+				questionCount++;
+				askQuestion(questionCount);
+		}
+
+		//else if it's incorrect
+		else if (checkAnswer($(this).html()) === false){
+				numberIncorrect++;
+				console.log("Number incorrect: "+numberIncorrect);
+				questionCount++;
+				askQuestion(questionCount);
+		}
 	})
 
+	if (countDownTimer === 0){
+		$('#question-box').hide();
+		$('#answer-box').hide();
+		$('#results-box').html("You ran out of time!");
+		unanswered++;
+		askQuestion();
 	}
+}
 
 
 //START THE GAME
 //start button click triggers begin function
-	$("#start-button").on("click", function() {
-		hideItem('#start-button');
+$("#start-button").on("click", function() {
+		$("#start-button").hide();
 
-	numberCorrect = 0, numberIncorrect = 0, unanswered = 0, questionCount = 0, count = 30;
+	numberCorrect = 0, numberIncorrect = 0, unanswered = 0, questionCount=0, countDownTimer = 30;
 
 	begin();
 
-		if (count === 0){
-			$('#question-box').hide();
-			$('#answer-box').hide();
-			$('#results-box').html("You ran out of time!");
-			unanswered++;
-			askQuestion();
-		}
+		// if (countDownTimer === 0){
+		// 	$('#question-box').hide();
+		// 	$('#answer-box').hide();
+		// 	$('#results-box').html("You ran out of time!");
+		// 	unanswered++;
+		// 	askQuestion();
+		// }
 
 });
 

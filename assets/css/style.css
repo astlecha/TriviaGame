@@ -1,14 +1,25 @@
 body {
 	background-image: url("../images/background-image.jpg");
 	text-align: center;
+	font-family: 'Open Sans', sans-serif;
 }
 
 h1{
-	color: black;
+	color: #6e5425;
+	font-size: 50px;
+	font-family: 'Petit Formal Script', cursive;
+
 }
 
 h2{
+	color: #9dc1de;
 
+}
+
+#question-box {
+	font-size: 25px;
+	padding: 5px;
+	color: #6e5425;
 }
 
 #container {
@@ -22,9 +33,14 @@ h2{
 
 #start-button {
 	background-color: #f05f43;
-	width: 100px;
+	width: 200px;
 	color: white;
 	padding: 20px;
-	font-size: 20px;
+	font-size: 30px;
+	font-family: 'Petit Formal Script', cursive;
 	display: inline-block;
+}
+
+.list-group.choices{
+	font-size: 17px;
 }
