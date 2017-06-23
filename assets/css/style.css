@@ -31,9 +31,9 @@ h2{
 	padding: 20px;
 }
 
-#start-button {
+#start-button, #play-again {
 	background-color: #f05f43;
-	width: 200px;
+	width: 260px;
 	color: white;
 	padding: 20px;
 	font-size: 30px;
